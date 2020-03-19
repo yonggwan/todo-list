@@ -2,6 +2,7 @@ import React from 'react';
 import { database } from './firebase';
 import TodoList from './containers/TodoList';
 import { GlobalStyle } from './styles/global';
+import * as Styled from './styles/app';
 
 class App extends React.Component {
   // private app: firebase.app.App;
@@ -14,10 +15,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <GlobalStyle />
-        <div className="app">
-          <h1>Todo Project</h1>
+        <Styled.AppContainer>
+          <Styled.AppTitle>Todo List</Styled.AppTitle>
           <TodoList todoRef={this.todoRef} />
-        </div>
+        </Styled.AppContainer>
       </React.Fragment>
     );
   }
