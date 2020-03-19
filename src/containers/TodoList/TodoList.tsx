@@ -13,6 +13,16 @@ type State = {
   isFulfilled: boolean;
 };
 
+/**
+ * @description json 구조의 data를 배열로 변환
+ * @param {json} jsonObject 
+ * @return {array}
+ */
+const mapJsonToArray = <T extends {}>(json: Object): Array<T> => Object.entries(json).map(([k, v]) => ({
+  id: k,
+  ...v
+}));
+
 class TodoList extends React.Component<Props, State> {
   public state: State = {
     todos: null,
@@ -21,15 +31,21 @@ class TodoList extends React.Component<Props, State> {
   // ## lifecycle ##
   componentDidMount = () => {
     this.props.todoRef.on('value', (snap) => {
-      this.setState({ todos: snap.val() });
+      this.setState({ todos: mapJsonToArray<Todo>(snap.val()) });
     });
   }
 
   // ## handlers ##
-
+  handleInputKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.which === 13) {
+      const target = event.target as HTMLInputElement;
+      this.addTodo(target.value);
+      target.value = '';
+    }
+  };
+  
   // ## actions ##
-  addTodo = async (description: string) => {
-    alert(description);
+  addTodo = async (description: string, callback?: Function) => {
     const newTodoRef = await this.props.todoRef.push();
     const newTodoItem: Todo = {
       id: newTodoRef.key as string,
@@ -39,12 +55,11 @@ class TodoList extends React.Component<Props, State> {
       // relatedTodoId: string
     }
     newTodoRef.set(newTodoItem);
+    callback && callback();
   };
   
   // ## etc functions ##
   mapTodoStateToComponent = () => {
-    console.log(this.state.todos);
-    return '';
     return this.state.todos?.map(todo => <TodoItem key={todo.id} todo={todo} />);
   }
 
@@ -54,7 +69,7 @@ class TodoList extends React.Component<Props, State> {
         <TextInput
           label='todo...'
           name='newtodo'
-          onKeyDown={(event) => event.which === 13 && this.addTodo(event.currentTarget.value)}
+          onKeyDown={this.handleInputKeydown}
         />
         {this.state.todos ? (
           <ul>
