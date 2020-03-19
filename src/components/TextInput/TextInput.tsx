@@ -4,11 +4,10 @@ import * as Styled from './style';
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   label: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TextInput = (props: Props) => {
-  const { label, name, onChange, onFocus, onBlur, ...rest } = props;
+  const { label, name, onFocus, onBlur, ...rest } = props;
   const [focused, setFocused] = React.useState(false);
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocused(true);
@@ -23,7 +22,6 @@ const TextInput = (props: Props) => {
       <Styled.Input
         type='text'
         name={name}
-        onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
         required
