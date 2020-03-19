@@ -1,5 +1,6 @@
 import React from 'react';
 import Todo from '../models/Todo';
+import TextInput from '../components/TextInput';
 import TodoItem from '../components/todo/TodoItem';
 
 type Props = {
@@ -23,11 +24,21 @@ class TodoList extends React.Component<Props, State> {
   mapTodoStateToComponent = () => {
     return this.state.todos.map(todo => <TodoItem key={todo.id} todo={todo} />);
   }
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event);
+  };
   render () {
     return (
-      <ul>
-        {this.mapTodoStateToComponent()}
-      </ul>
+      <div>
+        <TextInput
+          label='todo...'
+          name='newtodo'
+          onChange={this.handleChange}
+        />
+        <ul>
+          {this.mapTodoStateToComponent()}
+        </ul>
+      </div>
     )
   }
 }

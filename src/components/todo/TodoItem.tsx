@@ -11,8 +11,6 @@ const TodoItem = (props: Props) => {
   return (
     <Styled.TodoItem>
       <div>{todo.description}</div>
-      <br/>
-      <pre>{JSON.stringify(todo)}</pre>
     </Styled.TodoItem>
   )
 };
