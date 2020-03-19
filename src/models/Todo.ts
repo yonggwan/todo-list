@@ -1,18 +1,17 @@
 export type TodoParam = {
-  id: number;
+  id: string;
   description: string;
   registeredDate: string;
   updatedDate?: string;
-  relatedTodoId?: number;
+  relatedTodoId?: string;
 }
 
 export default class Todo {
-  private age: number = 100;
-  public id: number = 0;
+  public id: string = '';
   public description: string = '';
   public registeredDate: string = '';
-  public updatedDate: string = '';
-  public relatedTodoId: number = 0;
+  public updatedDate?: string = '';
+  public relatedTodoId?: string = '';
   constructor (param?: TodoParam) {
     param && Object.assign<Todo, TodoParam>(this, param);
   }
