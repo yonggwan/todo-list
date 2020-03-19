@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { database } from './firebase';
+import TodoList from './containers/TodoList';
+import { GlobalStyle } from './styles/global';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  // private app: firebase.app.App;
+  private todoRef: firebase.database.Reference;
+  constructor (props: any) {
+    super(props);
+    this.todoRef = database.ref('/todos');
+  }
+  render () {
+    return (
+      <React.Fragment>
+        <GlobalStyle />
+        <div className="app">
+          <h1>Todo Project</h1>
+          <TodoList todoRef={this.todoRef} />
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
