@@ -19,7 +19,7 @@ type State = {
  * @param {json} jsonObject 
  * @return {array}
  */
-const mapJsonToArray = <T extends {}>(json: Object): Array<T> => Object.entries(json).map(([k, v]) => ({
+const mapJsonToArray = <T extends {}>(json: Object, mapper?: (value: T) => any): Array<T> => Object.entries(json).map(([k, v]) => mapper ? mapper(v) : ({
   id: k,
   ...v
 }));
@@ -32,7 +32,15 @@ class TodoList extends React.Component<Props, State> {
   // ## lifecycle ##
   componentDidMount = () => {
     this.props.todoRef.on('value', (snap) => {
-      this.setState({ todos: mapJsonToArray<Todo>(snap.val()) });
+      const todos = snap.val();
+      const nextState: State = {
+        todos: null,
+        isFulfilled: true
+      };
+      if (todos) {
+        nextState.todos = mapJsonToArray<Todo>(todos, value => new Todo(value));
+      }
+      this.setState(nextState);
     });
   }
 
@@ -40,38 +48,65 @@ class TodoList extends React.Component<Props, State> {
   handleInputKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.which === 13) {
       const target = event.target as HTMLInputElement;
-      this.addTodo(target.value);
-      target.value = '';
+      if (target.value.trim()) {
+        this.addTodo(target.value);
+        target.value = '';
+      }
     }
   };
 
-  handleTodoSearch = () => {
+  handleTodoUpdate = (id: string, param: Partial<Todo>) => {
+    this.updateTodo(id, param);
+  };
 
+  handleTodoRemove = (id: string) => {
+    this.removeTodo(id);
   };
   
   // ## actions ##
   addTodo = async (description: string, callback?: Function) => {
     const newTodoRef = await this.props.todoRef.push();
-    const newTodoItem: Todo = {
+    const newTodoItem = {
       id: newTodoRef.key as string,
       description: description,
       registeredDate: new Date().toISOString(),
-      updatedDate: new Date().toISOString(),
+      updatedDate: '',
       // relatedTodoId: string
-    }
+    };
+    console.log({...newTodoItem})
     newTodoRef.set(newTodoItem);
     callback && callback();
+  };
+
+  updateTodo = async (id: string, param: Partial<Todo>) => {
+    const nextTodo: Partial<Todo> = {
+      ...param,
+      updatedDate: new Date().toISOString()
+    }
+    await this.props.todoRef.child(id).update(nextTodo);
+    // this.props.todoRef;
+  };
+
+  removeTodo = async (id: string) => {
+    await this.props.todoRef.child(id).remove();
   };
   
   // ## etc functions ##
   mapTodoStateToComponent = () => {
-    return this.state.todos?.map(todo => <TodoItem key={todo.id} todo={todo} />);
-  }
+    return this.state.todos?.map(todo => (
+      <TodoItem
+        key={todo.id}
+        todo={todo}
+        update={(param) => this.handleTodoUpdate(todo.id, param)}
+        remove={() => this.handleTodoRemove(todo.id)} />
+      ));
+  };
 
   render () {
     return (
       <div>
         <TextInput
+          maxLength={250}
           label='todo...'
           name='newtodo'
           onKeyDown={this.handleInputKeydown}

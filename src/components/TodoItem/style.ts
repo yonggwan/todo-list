@@ -9,29 +9,6 @@ export const TodoItem = styled.li`
   padding: 10px 20px;
 `;
 
-export const Input = styled.input`
-  width: 0;
-  & + label {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #fba1bd;
-    cursor: pointer;
-  }
-  &:checked + label {
-    color: #fff;
-    font-size: 18px;
-    background-color: #ffc2d5;
-    line-height: 10px;
-  }
-`;
-
-export const Label = styled.label`
-  text-align: center;
-  margin-right: 10px;
-  color: transparent;
-`
-
 export const Content = styled.div`
   flex: 1;
   margin-right: 20px;
@@ -54,11 +31,12 @@ export const Relations = styled.div`
 `;
 
 export const Button = styled.button`
+  font-size: 11px;
   color: #ccc;
   border: none;
   background: none;
-  outline: 1;
+  padding: 0 3px;
   &:hover, &:focus {
-    color: red;
+    color: #666;
   }
 `;

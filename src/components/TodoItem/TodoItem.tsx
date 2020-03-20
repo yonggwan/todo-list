@@ -1,23 +1,36 @@
 import React from 'react';
 import Todo from '../../models/Todo';
+import ToggleBox from '../../components/ToggleBox';
 import * as Styled from './style';
 
 type Props = {
-  todo: Todo
+  todo: Todo,
+  update: (param: Partial<Todo>) => void;
+  remove: () => void;
 };
 
 const TodoItem = (props: Props) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => props.update({ done: event.target.checked });
+
   const { todo } = props;
   return (
     <Styled.TodoItem>
-      <Styled.Input type='checkbox' id={todo.id} />
-      <Styled.Label htmlFor={todo.id}>v</Styled.Label>
+      <ToggleBox
+        type='checkbox'
+        name='done'
+        id={todo.id}
+        checked={todo.done}
+        onChange={handleChange} />
       <Styled.Content>
-        <Styled.RegDate>{todo.updatedDate}</Styled.RegDate>
+        <Styled.RegDate>
+          작성일: {todo.getFormattedDate(todo.registeredDate)}
+          {todo.updatedDate && ` | 마지막수정일: ${todo.getFormattedDate(todo.updatedDate)}`}
+        </Styled.RegDate>
         <Styled.Description>{todo.description}</Styled.Description>
         <Styled.Relations>#운동 #뱃살 #다이어트</Styled.Relations>
       </Styled.Content>
-      <Styled.Button>x</Styled.Button>
+      <Styled.Button>수정</Styled.Button>
+      <Styled.Button onClick={props.remove}>삭제</Styled.Button>
     </Styled.TodoItem>
   )
 };

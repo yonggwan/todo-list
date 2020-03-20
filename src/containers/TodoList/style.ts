@@ -13,5 +13,5 @@ export const EmptyBlock = styled.div`
   text-align: center;
   font-size: 24px;
   color: #ccc;
-  margin-top: 100px;
+  margin-top: 30px;
 `;
