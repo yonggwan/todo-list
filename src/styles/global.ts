@@ -25,6 +25,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    box-sizing: border-box;
   }
 
   /* make sure to set some focus styles for accessibility */
@@ -40,6 +41,8 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     line-height: 1;
+    background: #f6f6f6;
+    height: 100%;
   }
 
   ol, ul {
@@ -126,6 +129,7 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 100%; /* 1 */
       -webkit-text-size-adjust: 100%; /* 2 */
       -ms-text-size-adjust: 100%; /* 2 */
+      height: 100%;
   }
 
   /**

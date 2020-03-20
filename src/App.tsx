@@ -2,7 +2,7 @@ import React from 'react';
 import { database } from './firebase';
 import TodoList from './containers/TodoList';
 import { GlobalStyle } from './styles/global';
-import * as Styled from './styles/app';
+import * as Styled from './styles/app.style';
 
 class App extends React.Component {
   // private app: firebase.app.App;

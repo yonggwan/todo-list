@@ -1,6 +1,6 @@
 import React from 'react';
 import Todo from '../../models/Todo';
-import TextInput from '../../components/TextInput';
+import TextInput from '../../components/textInput';
 import TodoItem from '../../components/todo/TodoItem';
 import * as Styled from './style';
 
@@ -72,9 +72,9 @@ class TodoList extends React.Component<Props, State> {
           onKeyDown={this.handleInputKeydown}
         />
         {this.state.todos ? (
-          <ul>
+          <Styled.TodoListContainer>
             {this.mapTodoStateToComponent()}
-          </ul>
+          </Styled.TodoListContainer>
         ) : this.state.isFulfilled ? (
           <Styled.EmptyBlock>
             할일이 없네요 새로운 할일을 등록해보세요.
