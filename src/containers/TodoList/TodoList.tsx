@@ -1,7 +1,8 @@
 import React from 'react';
 import Todo from '../../models/Todo';
-import TextInput from '../../components/textInput';
-import TodoItem from '../../components/todo/TodoItem';
+import TextInput from '../../components/TextInput';
+import TodoItem from '../../components/TodoItem/TodoItem';
+import TodoSearchForm from '../../components/TodoSearchForm';
 import * as Styled from './style';
 
 type Props = {
@@ -43,6 +44,10 @@ class TodoList extends React.Component<Props, State> {
       target.value = '';
     }
   };
+
+  handleTodoSearch = () => {
+
+  };
   
   // ## actions ##
   addTodo = async (description: string, callback?: Function) => {
@@ -71,6 +76,7 @@ class TodoList extends React.Component<Props, State> {
           name='newtodo'
           onKeyDown={this.handleInputKeydown}
         />
+        <TodoSearchForm />
         {this.state.todos ? (
           <Styled.TodoListContainer>
             {this.mapTodoStateToComponent()}
