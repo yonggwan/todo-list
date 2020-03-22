@@ -49,7 +49,7 @@ const TodoItem = (props: Props) => {
         ) : (
           <Styled.Description done={todo.done}>{todo.description}</Styled.Description>)
         }
-        <Styled.Relations>#운동 #뱃살 #다이어트</Styled.Relations>
+        <Styled.Relations>#</Styled.Relations>
       </Styled.Content>
       {!todo.done && <Styled.Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? '취소' : '수정'}</Styled.Button>}
       <Styled.Button onClick={props.remove}>삭제</Styled.Button>
