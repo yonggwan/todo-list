@@ -22,8 +22,9 @@ export const RegDate = styled.div`
   margin-bottom: 3px;
 `;
 
-export const Description = styled.p`
+export const Description = styled.p<{ done: boolean }>`
   line-height: 1.35;
+  ${({ done }) => done && 'text-decoration: line-through;'}
 `;
 
 export const TextInput = styled.input`
