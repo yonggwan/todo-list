@@ -69,8 +69,8 @@ class TodoList extends React.Component<Props, State> {
     const newTodoItem = {
       id: newTodoRef.key as string,
       description: description,
-      registeredDate: new Date().toISOString(),
-      updatedDate: '',
+      createdAt: new Date().toISOString(),
+      updatedAt: '',
       // relatedTodoId: string
     };
     console.log({...newTodoItem})
@@ -81,7 +81,7 @@ class TodoList extends React.Component<Props, State> {
   updateTodo = async (id: string, param: Partial<Todo>) => {
     const nextTodo: Partial<Todo> = {
       ...param,
-      updatedDate: new Date().toISOString()
+      updatedAt: new Date().toISOString()
     }
     await this.props.todoRef.child(id).update(nextTodo);
     // this.props.todoRef;

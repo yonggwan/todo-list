@@ -1,8 +1,8 @@
 export type TodoParam = {
   id: string;
   description: string;
-  registeredDate: string;
-  updatedDate?: string;
+  createdAt: string;
+  updatedAt?: string;
   relatedTodoId?: string;
   done: boolean;
 }
@@ -10,8 +10,8 @@ export type TodoParam = {
 export default class Todo {
   public id: string = '';
   public description: string = '';
-  public registeredDate: string = '';
-  public updatedDate?: string = '';
+  public createdAt: string = '';
+  public updatedAt?: string = '';
   public relatedTodoId?: string = '';
   public done: boolean = false;
   constructor (param?: TodoParam) {
@@ -19,6 +19,6 @@ export default class Todo {
   }
   public getFormattedDate (date: string) {
     const dateObj = new Date(date);
-    return `${dateObj.getFullYear()}년 ${dateObj.getMonth()}월 ${dateObj.getDay()}일 ${dateObj.getHours()}:${dateObj.getMinutes()}`;
+    return `${dateObj.getFullYear()}년 ${dateObj.getMonth() + 1}월 ${dateObj.getDate()}일 ${dateObj.getHours()}:${dateObj.getMinutes()}`;
   }
 }
