@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
-export const TodoItem = styled.li`
+export const TodoItem = styled.li<{ active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #f6f6f6;
   min-height: 40px;
   padding: 10px 20px;
+  transition: background-color ease 0.2s;
+  background-color: ${({active}) => active ? '#fff4f7' : 'inherit'};
 `;
 
 export const Content = styled.div`
@@ -22,6 +24,11 @@ export const RegDate = styled.div`
 
 export const Description = styled.p`
   line-height: 1.35;
+`;
+
+export const TextInput = styled.input`
+  display: block;
+  width: 100%;
 `;
 
 export const Relations = styled.div`

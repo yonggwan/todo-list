@@ -10,11 +10,23 @@ type Props = {
 };
 
 const TodoItem = (props: Props) => {
+  const [isEditing, setIsEditing] = React.useState(false);
+  // ## handlers ##
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => props.update({ done: event.target.checked });
+  const handleInputKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.which === 13) {
+      const target = event.target as HTMLInputElement;
+      if (target.value.trim()) {
+        props.update({ description: target.value });
+        target.value = '';
+        setIsEditing(false);
+      }
+    }
+  };
 
   const { todo } = props;
   return (
-    <Styled.TodoItem>
+    <Styled.TodoItem active={isEditing}>
       <ToggleBox
         type='checkbox'
         name='done'
@@ -23,13 +35,23 @@ const TodoItem = (props: Props) => {
         onChange={handleChange} />
       <Styled.Content>
         <Styled.RegDate>
-          작성일: {todo.getFormattedDate(todo.registeredDate)}
-          {todo.updatedDate && ` | 마지막수정일: ${todo.getFormattedDate(todo.updatedDate)}`}
+          작성일: {todo.getFormattedDate(todo.createdAt)}
+          {todo.updatedAt && ` | 마지막수정일: ${todo.getFormattedDate(todo.updatedAt)}`}
         </Styled.RegDate>
-        <Styled.Description>{todo.description}</Styled.Description>
+        {isEditing ? (
+          <Styled.TextInput
+            type='text'
+            name='description'
+            defaultValue={todo.description}
+            autoFocus={true}
+            maxLength={250}
+            onKeyDown={handleInputKeydown} />
+        ) : (
+          <Styled.Description>{todo.description}</Styled.Description>)
+        }
         <Styled.Relations>#운동 #뱃살 #다이어트</Styled.Relations>
       </Styled.Content>
-      <Styled.Button>수정</Styled.Button>
+      <Styled.Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? '취소' : '수정'}</Styled.Button>
       <Styled.Button onClick={props.remove}>삭제</Styled.Button>
     </Styled.TodoItem>
   )
