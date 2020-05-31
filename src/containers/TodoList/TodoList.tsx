@@ -4,6 +4,7 @@ import TextInput from '../../components/TextInput';
 import TodoItem from '../../components/TodoItem/TodoItem';
 import TodoSearchForm from '../../components/TodoSearchForm';
 import * as Styled from './style';
+import * as SlackMessaging from '../../utils/slackMessaging';
 
 type Props = {
   todoRef: firebase.database.Reference;
@@ -73,8 +74,8 @@ class TodoList extends React.Component<Props, State> {
       updatedAt: '',
       // relatedTodoId: string
     };
-    console.log({...newTodoItem})
     newTodoRef.set(newTodoItem);
+    SlackMessaging.send(SlackMessaging.getNewTodoMessagingBody(description));
     callback && callback();
   };
 
