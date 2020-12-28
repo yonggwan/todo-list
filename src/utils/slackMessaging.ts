@@ -1,5 +1,5 @@
 // channel: yongs / yongspace / palyground
-const SlackURL = 'https://hooks.slack.com/services/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';
+const SlackURL = 'https://hooks.slack.com/services/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';
 
 export const getNewTodoMessagingBody = (description: string) => ({
   "text": "Someone left new todo!",
