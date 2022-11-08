@@ -3,7 +3,7 @@
 ![Typescript][javascript-image]
 
 [javascript-image]: https://img.shields.io/badge/Typescript-%5E3.7.5-orange
-[React-image]: https://img.shields.io/badge/React-%5E3.7.5-blue
+[React-image]: https://img.shields.io/badge/React-%5E16.13-blue
 
 
 ## About <a name = "about"></a>
