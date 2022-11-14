@@ -19,7 +19,7 @@ const ToggleBox = (props: Props) => {
         name={props.name}
         type={props.type}
         onChange={props.onChange} 
-        {...props.checked !== undefined && { checked: props.checked }} />
+        defaultChecked={props.checked === true} />
       <Styled.Label htmlFor={inputId}>v</Styled.Label>      
       <span>{props.label}</span>
     </Styled.ToggleBox>
