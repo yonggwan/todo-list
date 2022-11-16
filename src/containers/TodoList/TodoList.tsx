@@ -4,7 +4,7 @@ import TextInput from '../../components/TextInput';
 import TodoItem from '../../components/TodoItem/TodoItem';
 import TodoSearchForm from '../../components/TodoSearchForm';
 import * as Styled from './style';
-import * as SlackMessaging from '../../utils/slackMessaging';
+import * as api from '../../api';
 
 type Props = {
   todoRef: firebase.database.Reference;
@@ -67,15 +67,16 @@ class TodoList extends React.Component<Props, State> {
   // ## actions ##
   addTodo = async (description: string, callback?: Function) => {
     const newTodoRef = await this.props.todoRef.push();
+    const createdAt = new Date().toISOString();
     const newTodoItem = {
       id: newTodoRef.key as string,
       description: description,
-      createdAt: new Date().toISOString(),
+      createdAt,
       updatedAt: '',
       // relatedTodoId: string
     };
     newTodoRef.set(newTodoItem);
-    SlackMessaging.send(SlackMessaging.getNewTodoMessagingBody(description));
+    api.logService.newTodo(description, createdAt);
     callback && callback();
   };
 

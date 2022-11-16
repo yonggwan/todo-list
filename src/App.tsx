@@ -3,7 +3,7 @@ import { database } from './firebase';
 import TodoList from './containers/TodoList';
 import { GlobalStyle } from './styles/global';
 import * as Styled from './styles/app.style';
-import * as SlackMessaging from './utils/slackMessaging';
+import * as api from './api';
 
 class App extends React.Component {
   // private app: firebase.app.App;
@@ -13,7 +13,16 @@ class App extends React.Component {
     this.todoRef = database.ref('/todos');
   }
   componentDidMount () {
-    SlackMessaging.send(SlackMessaging.getUserLogMessagingBody());
+    const pageview = async () => {
+      try {
+        const responseBody = await api.logService.pageview();
+        // const responseBody = await response.json();
+        console.log(responseBody);
+      } catch (err) {
+        console.log('err', err);
+      }
+    };
+    pageview();
   }
   render () {
     return (
