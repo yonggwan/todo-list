@@ -7,6 +7,7 @@ type Props = {
   type: 'checkbox' | 'radio';
   label?: string;
   checked?: boolean;
+  disabled?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -19,7 +20,8 @@ const ToggleBox = (props: Props) => {
         name={props.name}
         type={props.type}
         onChange={props.onChange} 
-        defaultChecked={props.checked === true} />
+        disabled={props.disabled}
+        defaultChecked={props.checked} />
       <Styled.Label htmlFor={inputId}>v</Styled.Label>      
       <span>{props.label}</span>
     </Styled.ToggleBox>

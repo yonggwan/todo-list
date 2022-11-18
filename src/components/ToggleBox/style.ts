@@ -22,6 +22,10 @@ export const Input = styled.input`
     background-color: #ffc2d5;
     line-height: 10px;
   }
+  &:disabled ~ label,
+  &:disabled ~ span {
+    opacity: 0.3;
+  }
 `;
 
 export const Label = styled.label`

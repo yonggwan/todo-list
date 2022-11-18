@@ -12,8 +12,8 @@ const TodoSearchForm = (props: Props) => {
 
   return (
     <Styled.SearchContainer>
-      <ToggleBox checked={true} type='checkbox' name='isDone' label='완료' />
-      <ToggleBox checked={true} type='checkbox' name='isNotDone' label='미완료' />
+      <ToggleBox checked disabled type='checkbox' name='isDone' label='완료' />
+      <ToggleBox checked disabled type='checkbox' name='isNotDone' label='미완료' />
     </Styled.SearchContainer>
   );
 };
